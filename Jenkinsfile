@@ -20,7 +20,7 @@ pipeline {
                     // Kill existing backend
                     sh "pkill -f 'uvicorn backend.main' || true"
                     // Start new one
-                    sh "nohup uvicorn backend.main:app --host 0.0.0.0 --port 8000 &"
+                    sh "sudo -u ec2-user nohup uvicorn backend.main:app --host 0.0.0.0 --port 8000 &"
                 }
             }
         }
@@ -32,7 +32,7 @@ pipeline {
                     // Kill old serve
                     sh "pkill -f 'serve -s' || true"
                     // Start frontend again
-                    sh "cd frontend && nohup serve -s . -l 3000 &"
+                    sh "cd frontend && sudo -u ec2-user nohup serve -s . -l 3000 &"
                 }
             }
         }
